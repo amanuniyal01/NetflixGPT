@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import Body from './components/Body.jsx'
+import Body from './components/Body.jsX'
 function App() {
   
   return(
