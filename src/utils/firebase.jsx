@@ -1,14 +1,22 @@
-import { initializeApp } from "firebase/app";
+// utils/firebase.js (or firebase.jsx)
+import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAi9KV8ED4kUFNcA4AwFbbeyUDy_synJ1o",
+  authDomain: "netflixgpt-9a3e7.firebaseapp.com",
+  projectId: "netflixgpt-9a3e7",
+  storageBucket: "netflixgpt-9a3e7.appspot.com",
+  messagingSenderId: "980883161529",
+  appId: "1:980883161529:web:2a1bb0398e5175a330f668",
+  measurementId: "G-ZKKCYKCD0K",
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+// ✅ Prevents "Firebase App named '[DEFAULT]' already exists" error
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+
+// ✅ Export Auth to use in Login.jsx
+export const auth = getAuth(app);
+
+export default app;
