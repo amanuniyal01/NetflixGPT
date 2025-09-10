@@ -1,9 +1,12 @@
 import React, { useState, useRef } from "react";
 import { checkValidData } from "../utils/validate";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getFirebaseErrorMessage } from "../utils/FirebaseErrors";
 import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -13,7 +16,7 @@ const Login = () => {
   const ToggleSignUp = () => setIsOpen(!isOpen);
 
   const handleButtonClick = () => {
-  
+
 
     const message = checkValidData(email.current.value, password.current.value);
     setErrorMessage(message);
@@ -22,19 +25,21 @@ const Login = () => {
         // Sign Up
         createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
           .then((userCredential) => {
-          
+            navigate("/browser")
+
           })
           .catch((error) => {
-            setErrorMessage(error.code + " " + error.message);
+            setErrorMessage(getFirebaseErrorMessage(error.code));
           });
       } else {
         // Sign In
         signInWithEmailAndPassword(auth, email.current.value, password.current.value)
           .then((userCredential) => {
-     
+            navigate("/browser")
+
           })
           .catch((error) => {
-            setErrorMessage(error.code + " " + error.message);
+            setErrorMessage(getFirebaseErrorMessage(error.code));
           });
       }
     }
