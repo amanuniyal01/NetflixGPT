@@ -1,6 +1,6 @@
 const Browser = () => {
     return (
-        <div>Browser</div>
+        <div></div>
     )
 }
 

@@ -5,8 +5,13 @@ import { getFirebaseErrorMessage } from "../utils/FirebaseErrors";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 
+
+
+
 const Login = () => {
   const navigate = useNavigate()
+
+ 
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 

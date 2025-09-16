@@ -14,7 +14,12 @@ const Body = () => {
   const appRouter = createBrowserRouter([
     {
       path: "/",
-      element: <Login />
+      element:(
+        <>
+        <Header/>
+        <Login/>
+        </>
+      )
     },
     {
       path: "/browser",
@@ -38,7 +43,7 @@ const Body = () => {
       }
     })
 
-    return () => unsubscribe() // cleanup listener
+    return () => unsubscribe() 
   }, [dispatch])
 
   return (
