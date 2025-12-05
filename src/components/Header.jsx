@@ -1,11 +1,16 @@
 import React from "react";
 import userImage from "../assets/user.png";
+import { useEffect } from "react";
 import { signOut } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { removeUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../utils/firebase";
 import { useSelector } from "react-redux";
+import { onAuthStateChanged } from 'firebase/auth'
+import { addUser } from '../utils/userSlice'
+
+
 
 
 const Header = () => {
@@ -14,8 +19,8 @@ const Header = () => {
   const navigate = useNavigate();
   const UserSignOut = () => {
     signOut(auth).then(() => {
-      dispatch(removeUser)
-      navigate("/")
+      dispatch(removeUser())
+      
 
 
       // Sign-out successful.
@@ -24,12 +29,27 @@ const Header = () => {
 
     });
   }
+  // Run only once on mount
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName } = user
+        dispatch(addUser({ uid, email, displayName }))
+        navigate("/browser")
+      } else {
+        dispatch(removeUser())
+        navigate("/")
+      }
+    })
+
+    return () => unsubscribe()
+  }, [dispatch])
   return (
     <div className="absolute flex items-center justify-between w-full bg-gradient-to-b from-black z-50 px-6 py-3">
       {/* Netflix Logo */}
       <img
-        className="h-6 md:h-10"
-        src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"
+        className="h-6 ml-12 mt-6 md:h-12"
+        src="https://i.ibb.co/SNKRx9w/Netflixlogo.png"
         alt="Netflix Logo"
       />
 

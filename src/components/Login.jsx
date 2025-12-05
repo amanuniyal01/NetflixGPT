@@ -3,13 +3,13 @@ import { checkValidData } from "../utils/validate";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { getFirebaseErrorMessage } from "../utils/FirebaseErrors";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
+
 
 
 
 
 const Login = () => {
-  const navigate = useNavigate()
+ 
 
  
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +30,7 @@ const Login = () => {
         // Sign Up
         createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
           .then((userCredential) => {
-            navigate("/browser")
+           
 
           })
           .catch((error) => {
@@ -40,7 +40,7 @@ const Login = () => {
         // Sign In
         signInWithEmailAndPassword(auth, email.current.value, password.current.value)
           .then((userCredential) => {
-            navigate("/browser")
+           
 
           })
           .catch((error) => {
@@ -54,7 +54,7 @@ const Login = () => {
     <div className="relative flex items-center flex-col justify-center">
       <div className="h-[100vh] w-[100vw] relative">
         <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/8d617e19-3c3c-4c28-8998-c9b14dbc7200/web/IN-en-20250901-TRIFECTA-perspective_48d84d4e-9558-46b8-a0f3-8b2dc8478431_small.jpg"
+          src="https://assets.nflxext.com/ffe/siteui/vlv3/30c8b9f4-3db9-4b3b-a1ee-8fa56531b712/web/IN-en-20251201-TRIFECTA-perspective_c7623e8e-c406-43d2-9d9a-0140ce19ac84_large.jpg"
           alt="Netflix Hero"
           className="w-full h-full object-cover"
         />
