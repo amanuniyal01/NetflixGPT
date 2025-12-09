@@ -1,52 +1,84 @@
 import React, { useState, useRef } from "react";
 import { checkValidData } from "../utils/validate";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  sendEmailVerification 
+} from "firebase/auth";
 import { getFirebaseErrorMessage } from "../utils/FirebaseErrors";
 import { auth } from "../utils/firebase";
-
-
-
-
+import toast from "react-hot-toast";
 
 const Login = () => {
- 
-
- 
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
   const email = useRef(null);
   const password = useRef(null);
+  const name = useRef(null);
 
-  const ToggleSignUp = () => setIsOpen(!isOpen);
+  const ToggleSignUp = () => {
+    setIsOpen(!isOpen);
+    setErrorMessage(null);
+  };
 
-  const handleButtonClick = () => {
-
+  const handleButtonClick = async () => {
+    setErrorMessage(null);
 
     const message = checkValidData(email.current.value, password.current.value);
-    setErrorMessage(message);
-    if (!message) {
-      if (isOpen) {
-        // Sign Up
-        createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
-          .then((userCredential) => {
-           
+    if (message) {
+      setErrorMessage(message);
+      return;
+    }
 
-          })
-          .catch((error) => {
-            setErrorMessage(getFirebaseErrorMessage(error.code));
-          });
-      } else {
-        // Sign In
-        signInWithEmailAndPassword(auth, email.current.value, password.current.value)
-          .then((userCredential) => {
-           
+    if (isOpen) {
+      // SIGN UP — WITH EMAIL VERIFICATION
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then(async (userCredential) => {
+          const user = userCredential.user;
 
-          })
-          .catch((error) => {
-            setErrorMessage(getFirebaseErrorMessage(error.code));
-          });
-      }
+          try {
+            await sendEmailVerification(user);
+            toast.success("Verification email sent! Please check your inbox.");
+
+            // Immediately log out after signup (recommended)
+            await auth.signOut();
+
+            toast("Please verify your email and sign in again.");
+          } catch (err) {
+            console.log("Email verification error:", err);
+            toast.error("Failed to send verification email.");
+          }
+        })
+        .catch((error) => {
+          setErrorMessage(getFirebaseErrorMessage(error.code));
+        });
+
+    } else {
+      // SIGN IN — CHECK IF VERIFIED
+      signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+        .then(async (userCredential) => {
+          await userCredential.user.reload();
+          const user = userCredential.user;
+
+          if (!user.emailVerified) {
+            toast.error("Please verify your email before logging in.");
+            await auth.signOut();
+            return;
+          }
+
+          toast.success("Login successful!");
+
+        
+
+        })
+        .catch((error) => {
+          setErrorMessage(getFirebaseErrorMessage(error.code));
+        });
     }
   };
 
@@ -54,14 +86,13 @@ const Login = () => {
     <div className="relative flex items-center flex-col justify-center">
       <div className="h-[100vh] w-[100vw] relative">
         <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/30c8b9f4-3db9-4b3b-a1ee-8fa56531b712/web/IN-en-20251201-TRIFECTA-perspective_c7623e8e-c406-43d2-9d9a-0140ce19ac84_large.jpg"
+          src="https://assets.nflxext.com/ffe/siteui/vlv3/30c8b9f4-3db9-4b3b-a1ee-8fa56531b712/web/IN-en-20251201-TRIFECTA-perspective_c7623e8e-c406-43d2-9d9a-0140ce19ac84_medium.jpg"
           alt="Netflix Hero"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
       </div>
 
-      {/* Auth Form */}
       <form
         onSubmit={(e) => e.preventDefault()}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
@@ -71,6 +102,7 @@ const Login = () => {
 
         {isOpen && (
           <input
+            ref={name}
             type="text"
             placeholder="Full Name"
             className="my-2 p-3 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none"

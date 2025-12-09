@@ -48,7 +48,7 @@ const Header = () => {
     <div className="absolute flex items-center justify-between w-full bg-gradient-to-b from-black z-50 px-6 py-3">
       {/* Netflix Logo */}
       <img
-        className="h-6 ml-12 mt-6 md:h-12"
+        className="h-8 md:h-6 ml-3 md:ml-12 mt-6 md:h-12"
         src="https://i.ibb.co/SNKRx9w/Netflixlogo.png"
         alt="Netflix Logo"
       />
