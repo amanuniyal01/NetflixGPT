@@ -32,7 +32,7 @@ const Login = () => {
     }
 
     if (isOpen) {
-      // SIGN UP — WITH EMAIL VERIFICATION
+      // SIGN UP 
       createUserWithEmailAndPassword(
         auth,
         email.current.value,
@@ -45,7 +45,7 @@ const Login = () => {
             await sendEmailVerification(user);
             toast.success("Verification email sent! Please check your inbox.");
 
-            // Immediately log out after signup (recommended)
+            // Immediately log out after signup 
             await auth.signOut();
 
             toast("Please verify your email and sign in again.");

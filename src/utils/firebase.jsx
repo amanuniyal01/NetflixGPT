@@ -13,10 +13,10 @@ const firebaseConfig = {
   measurementId: "G-ZKKCYKCD0K",
 };
 
-// ✅ Prevents "Firebase App named '[DEFAULT]' already exists" error
+//  Prevents "Firebase App named '[DEFAULT]' already exists" error
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-// ✅ Export Auth to use in Login.jsx
+//  Export Auth to use in Login.jsx
 export const auth = getAuth(app);
 
 export default app;
