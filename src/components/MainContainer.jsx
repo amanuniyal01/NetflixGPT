@@ -9,7 +9,7 @@ function MainContainer() {
     if (!movies) return
     const mainMovie = movies[4]
 
-    const { original_title, overview } = mainMovie
+    const { original_title, overview,id } = mainMovie
 
     return (
 
@@ -20,7 +20,7 @@ function MainContainer() {
 
 
             <VideoTitle title={original_title} description={overview}/>
-            <VideoBackground />
+            <VideoBackground  movieId={id} />
         </div>
     )
 }

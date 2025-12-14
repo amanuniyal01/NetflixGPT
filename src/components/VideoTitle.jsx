@@ -2,7 +2,7 @@ import React from 'react'
 
 function VideoTitle({ description, title }) {
     return (
-        <div className='pt-125 px-5'>
+        <div className='pt-125 px-5 -z-50'>
 
             <h1 className='sm:text-4xl text-3xl md:text-6xl font-bold' style={{ textShadow: "2px 2px 6px rgba(0,0,0,0.8)" }}>{title}</h1>
             <p className='md:text-2xl sm:text-xl text-xl sm:w-3/4 w-3/4 md:w-2/4 py-10 font-[500]'>{description}</p>
