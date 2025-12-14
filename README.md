@@ -1,62 +1,162 @@
-# Netflix-GPT – Authentication System (React + Firebase)
+Netflix-GPT – Authentication & Core Video Foundation (React + Firebase + Redux)
 
-This project is a Netflix-style authentication system built using **React**, **Firebase Authentication**, and **react-hot-toast**.  
-It includes **secure email/password signup**, **email verification**, **protected login**, and **modern toast notifications**.
+This project is a Netflix-inspired web application built using React, Firebase Authentication, Redux Toolkit, Tailwind CSS, and TMDB API.
+The goal of this project is to gradually build a production-ready Netflix-like platform, starting from authentication and moving toward real movie data, trailers, and GPT-based recommendations.
 
-As the project grows, this README will be updated with new features, pages, components, and architecture details.
+This README will be continuously updated as new features are added.
 
----
+🚀 Features Implemented So Far
+🔐 Authentication System (Completed)
+✅ 1. Email & Password Signup
 
-## 🚀 Features Implemented So Far
+Users can create an account using email and password with proper validations:
 
-### ✅ 1. Email & Password Signup  
-Users can register using email and password.  
-Front-end validations include:
-- Valid email
-- Password with minimum length
-- (Optional) full name field validation
+Valid email format
 
-### ✅ 2. Email Verification  
+Password length validation
+
+Error handling with custom Firebase messages
+
+✅ 2. Email Verification Flow
+
 After signup:
-- A verification email is automatically sent using Firebase.
-- User is **signed out** immediately to prevent unverified access.
-- User must open their email and click **"Verify Email"** to activate the account.
 
-### 🔒 Verification Enforcement  
-Even if the user tries to login:
-- The app checks `emailVerified` using `user.reload()`.
-- If email is **not verified**, login is blocked and user is signed out.
-- A clear toast message is shown:  
-  **“Please verify your email before logging in.”**
+A verification email is sent automatically using Firebase
 
-This ensures only real, verified users can access the app.
+User is signed out immediately after signup
 
-### 🎉 3. Modern Toast Notifications  
-The project uses **react-hot-toast** instead of alerts.  
+User must verify their email before being allowed to log in
 
-Usage:
-- `toast.success("Message")`
-- `toast.error("Message")`
+This prevents fake or unverified accounts.
 
-Toasts are clean, centered, and easy to see.
+🔒 3. Verified-Only Login Protection
 
-### 🧼 4. Clean UI with Tailwind CSS  
-The login/signup UI includes:
-- Netflix-themed background
-- Responsive layout
-- Input field styling
-- Real-time error messages
+On login:
 
----
+Firebase reloads the user using user.reload()
 
-## 🏗️ Project Structure (Simplified)
+emailVerified is checked
 
+If not verified:
+
+Login is blocked
+
+User is signed out
+
+Toast message is shown
+
+“Please verify your email before logging in.”
+
+This ensures only verified users can access protected routes.
+
+🎉 4. Modern Notifications (react-hot-toast)
+
+The project uses react-hot-toast instead of browser alerts:
+
+Success messages (signup, login)
+
+Error messages (auth errors, verification issues)
+
+Toasts are:
+
+Clean
+
+Non-blocking
+
+User-friendly
+
+🧭 5. Auth State Handling with Firebase Observer
+
+Implemented Firebase’s onAuthStateChanged:
+
+Automatically tracks user login/logout
+
+Syncs Firebase auth state with Redux
+
+Redirects users:
+
+Logged-in → /browse
+
+Logged-out → /
+
+This ensures persistent login state across refreshes.
+
+🗂️ Redux State Management (In Progress)
+✅ User Slice
+
+Stores authenticated user details (uid, email, displayName)
+
+Automatically updated on auth state change
+
+Cleared on logout
+
+🧩 Movie Slice (Foundation Added)
+
+Redux slice created for movie data
+
+Trailer video state added
+
+Will be expanded for:
+
+Now Playing
+
+Popular
+
+GPT recommendations
+
+🎬 Movie Trailer Fetching (TMDB API)
+✅ Trailer Fetch Logic
+
+Fetches movie videos using TMDB API
+
+Filters videos to get Trailer
+
+Falls back safely if trailer is missing
+
+Stores trailer data in Redux
+
+✅ YouTube Embed
+
+Trailer is rendered using YouTube iframe
+
+Autoplay + mute enabled
+
+Responsive aspect ratio
+
+This forms the hero background video like Netflix.
+
+🎨 UI & Styling
+
+Tailwind CSS for styling
+
+Responsive typography and layouts
+
+Netflix-style buttons
+
+Video title with text shadow
+
+Fully responsive across screen sizes
+
+🏗️ Project Structure (Current)
 src/
 │── components/
-│ └── Login.jsx # Authentication UI + logic
+│   ├── Login.jsx
+│   ├── Header.jsx
+│   ├── VideoTitle.jsx
+│   └── VideoBackground.jsx
+│
+│── hooks/
+│   └── useTrailerVideo.js (custom hook – WIP)
+│
 │── utils/
-│ ├── firebase.js # Firebase configuration
-│ ├── validate.js # Input validations
-│ └── FirebaseErrors.js # Custom Firebase error messages
-│── App.js # Main App + Toaster config
+│   ├── firebase.js
+│   ├── validate.js
+│   ├── constants.js
+│   ├── FirebaseErrors.js
+│   └── movieSlice.js
+│
+│── store/
+│   └── appStore.js
+│
+│── App.js
 └── index.js
