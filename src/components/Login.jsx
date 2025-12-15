@@ -50,7 +50,7 @@ const Login = () => {
 
             toast("Please verify your email and sign in again.");
           } catch (err) {
-            console.log("Email verification error:", err);
+            
             toast.error("Failed to send verification email.");
           }
         })

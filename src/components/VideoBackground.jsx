@@ -4,17 +4,15 @@ import UseTrailerVideo from '../Hooks/UseTrailerVideo'
 
 
 
-
 function VideoBackground({ movieId }) {
     const trailerVideo = useSelector((store) => store.movies?.getTrailerVideo)
+
     UseTrailerVideo(movieId)
 
-
-
     return (
-        <div className=' '>
+        <div className="w-screen h-screen ">
             <iframe
-                className="w-screen h-screen aspect-video"
+                className="w-screen aspect-video"
                 src={
                     "https://www.youtube.com/embed/" +
                     trailerVideo?.key +
@@ -23,8 +21,12 @@ function VideoBackground({ movieId }) {
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             ></iframe>
+
         </div>
     )
 }
+
+
+
 
 export default VideoBackground
