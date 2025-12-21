@@ -8,10 +8,10 @@ function SecondaryContainer() {
     movies.nowPlayingMovies && (
       <div className='secondary -mt-50   '>
         <div className='relative  z-20'>  <MovieList title={"Now Playing"} movies={movies.nowPlayingMovies} />
-          <MovieList title={"Trending"} movies={movies.nowPlayingMovies} />
-          <MovieList title={"Popular"} movies={movies.nowPlayingMovies} />
-          <MovieList title={"Upcoming"} movies={movies.nowPlayingMovies} />
-          <MovieList title={"Horror"} movies={movies.nowPlayingMovies} />
+          <MovieList title={"Trending"} movies={movies.TopRatedMovies} />
+          <MovieList title={"Popular"} movies={movies.nowPopularMovies} />
+          <MovieList title={"Horror"} movies={movies.horrorMovies} />
+          <MovieList title={"Upcoming"} movies={movies.upcomingMovies} />
         </div>
       </div>)
   )
