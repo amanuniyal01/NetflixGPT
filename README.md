@@ -1,4 +1,4 @@
-Netflix-GPT – Authentication & Core Video Foundation (React + Firebase + Redux)
+Stream-GPT – Authentication & Core Video Foundation (React + Firebase + Redux)
 
 This project is a Netflix-inspired web application built using React, Firebase Authentication, Redux Toolkit, Tailwind CSS, and TMDB API.
 The goal of this project is to gradually build a production-ready Netflix-like platform, starting from authentication and moving toward real movie data, trailers, and GPT-based recommendations.
