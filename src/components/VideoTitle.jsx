@@ -4,53 +4,41 @@ function VideoTitle({ description, title }) {
     const [showinfo, setShowInfo] = useState(true);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setShowInfo(false)
-        }, 10000)
-
+        const timer = setTimeout(() => setShowInfo(false), 10000);
         return () => clearTimeout(timer);
-    }, [])
+    }, []);
 
-
+    if (!showinfo) return null;
 
     return (
-        <>
-            {showinfo && (<div className="absolute top-0 w-screen aspect-video bg-gradient-to-r from-black px-4 sm:px-8 md:px-16 pt-24 sm:pt-32 md:pt-92pl-60">
+        <div className="absolute inset-0  bg-gradient-to-r from-black  flex items-center">
 
+    
+            <div className="w-full  px-6 sm:px-12 pb-20 pt-40">
 
                 <h1
-                    className=" text-whit text-3xl sm:text-4xl md:text-5xl font-bold text-white"
+                    className="text-white text-3xl sm:text-4xl md:text-5xl font-bold"
                     style={{ textShadow: "2px 2px 6px rgba(0,0,0,0.8)" }}
                 >
                     {title}
                 </h1>
 
-                
-                <p
-                    className="
-          text-white  text-sm sm:text-lg md:text-2xl mt-4 md:mt-8 w-full sm:w-3/4 md:w-1/2 font-medium leading-relaxed "
-                >
+                <p className="text-white text-sm sm:text-lg md:text-xl mt-4 w-full sm:w-3/4 md:w-1/2">
                     {description}
                 </p>
 
-                {/* Buttons */}
-                <div className="flex gap-5 mt-6 md:mt-10">
-                    <button
-                        className=" flex items-center gap-2 font-bold bg-white text-black  px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-lg rounded-md hover:bg-gray-300   transition"
-                    >
+                <div className="flex gap-5 mt-6">
+                    <button className="bg-white text-black px-6 py-3 rounded-md font-bold hover:bg-gray-300">
                         ▶ Play
                     </button>
 
-                    <button
-                        className="    flex items-center gap-2  bg-gray-400 bg-opacity-70 text-white px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-lg rounded-md hover:bg-gray-500  transition"
-                    >
+                    <button className="bg-gray-500 bg-opacity-70 text-white px-6 py-3 rounded-md hover:bg-gray-600">
                         ℹ More Info
                     </button>
                 </div>
-            </div>)}
-        </>
-
-    )
+            </div>
+        </div>
+    );
 }
 
-export default VideoTitle
+export default VideoTitle;

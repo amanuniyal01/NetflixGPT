@@ -3,15 +3,15 @@ import MovieCard from './MovieCard'
 
 function MovieList({ title, movies }) {
   return (
-    <div className="px-6 py-4">
-      {/* Row Title */}
-      <h1 className=" title text-xl md:text-3xl font-bold text-white my-7 ">
+    <div className="px-6 py-4   ">
+      
+      <h1 className=" title text-xl md:text-3xl font-bold text-white my-3 ">
         {title}
       </h1>
 
-      {/* Scroll Container */}
+      
       <div className="overflow-x-auto overflow-y-hidden scrollbar-hide">
-        <div className="flex gap-4">
+        <div className="flex gap-3">
           {movies?.map((movie) => (
             <MovieCard
               key={movie.id}

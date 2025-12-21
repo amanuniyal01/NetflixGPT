@@ -5,13 +5,15 @@ import { useSelector } from 'react-redux'
 function SecondaryContainer() {
   const movies = useSelector((store) => store.movies)
   return (
-    <div className='secondary'>
-      <MovieList title={"Now Playing"} movies={movies.nowPlayingMovies} />
-      <MovieList title={"Trending"} movies={movies.nowPlayingMovies} />
-      <MovieList title={"Popular"} movies={movies.nowPlayingMovies} />
-      <MovieList title={"Upcoming"} movies={movies.nowPlayingMovies} />
-      <MovieList title={"Horror"} movies={movies.nowPlayingMovies} />
-    </div>
+    movies.nowPlayingMovies && (
+      <div className='secondary -mt-50   '>
+        <div className='relative  z-20'>  <MovieList title={"Now Playing"} movies={movies.nowPlayingMovies} />
+          <MovieList title={"Trending"} movies={movies.nowPlayingMovies} />
+          <MovieList title={"Popular"} movies={movies.nowPlayingMovies} />
+          <MovieList title={"Upcoming"} movies={movies.nowPlayingMovies} />
+          <MovieList title={"Horror"} movies={movies.nowPlayingMovies} />
+        </div>
+      </div>)
   )
 }
 
