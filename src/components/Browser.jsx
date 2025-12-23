@@ -3,6 +3,7 @@ import useNowPlayingMovies from "../Hooks/UseNowPlayingMovies"
 import UsePopularMovies from "../Hooks/UsePopularMovies"
 import UseTopRatedMovies from "../Hooks/UseTopRatedMovies"
 import UseUpcomingMovies from "../Hooks/UseUpcomingMovies"
+import GPTSearch from "./GPTSearch"
 import MainContainer from "./MainContainer"
 import SecondaryContainer from "./SecondaryContainer"
 
@@ -31,6 +32,7 @@ MovieContainer
 
             <MainContainer />
             <SecondaryContainer />
+            <GPTSearch/>
         </div>
     )
 }

@@ -17,10 +17,13 @@ const Header = () => {
   const user = useSelector((store) => store.user)
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const NavigateGpt = () => {
+    navigate("/gpt")
+  }
   const UserSignOut = () => {
     signOut(auth).then(() => {
       dispatch(removeUser())
-      
+
 
 
       // Sign-out successful.
@@ -46,7 +49,7 @@ const Header = () => {
   }, [dispatch])
   return (
     <div className="absolute flex items-center justify-between w-full bg-gradient-to-b from-black z-50 px-6 py-3">
-      
+
       <img
         className="h-8  ml-3 md:ml-12 mt-6 md:h-12"
         src="https://i.ibb.co/SNKRx9w/Netflixlogo.png"
@@ -56,6 +59,7 @@ const Header = () => {
 
       {/* Right Section: Button + User Avatar */}
       {user && (<div className="flex items-center gap-4">
+        <button className="bg-blue-600 text-white font-bold my-2 py-2 px-4 rounded-lg" onClick={NavigateGpt}>GPT Search</button>
         <button onClick={UserSignOut} className="bg-red-600 hover:bg-red-700 transition px-2 md:px-4 py-1 md:py-2 rounded-md text-white font-bold">
           Sign Out
         </button>

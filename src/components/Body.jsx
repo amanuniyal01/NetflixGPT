@@ -3,6 +3,7 @@ import Login from './Login'
 import Header from './Header'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Browser from './Browser'
+import GPTSearch from './GPTSearch'
 
 
 const Body = () => {
@@ -24,6 +25,15 @@ const Body = () => {
         <>
           <Header />
           <Browser />
+        </>
+      )
+    },
+    {
+      path:"/gpt",
+      element:(
+        <>
+        <Header/>
+        <GPTSearch/>
         </>
       )
     }
