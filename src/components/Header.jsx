@@ -9,16 +9,18 @@ import { auth } from "../utils/firebase";
 import { useSelector } from "react-redux";
 import { onAuthStateChanged } from 'firebase/auth'
 import { addUser } from '../utils/userSlice'
+import { toggleGptSearch } from "../utils/gptSlice";
 
 
 
 
 const Header = () => {
   const user = useSelector((store) => store.user)
+  const showGptSearch = useSelector((store) => store.gpt.showGptSearch)
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const NavigateGpt = () => {
-    navigate("/gpt")
+  const ToggleGptFunction = () => {
+    dispatch(toggleGptSearch())
   }
   const UserSignOut = () => {
     signOut(auth).then(() => {
@@ -59,7 +61,23 @@ const Header = () => {
 
       {/* Right Section: Button + User Avatar */}
       {user && (<div className="flex items-center gap-4">
-        <button className="bg-blue-600 text-white font-bold my-2 py-2 px-4 rounded-lg" onClick={NavigateGpt}>GPT Search</button>
+        <button
+          onClick={ToggleGptFunction}
+          className={`
+    ${showGptSearch ? "bg-red-600 hover:bg-red-700" : "bg-blue-600 hover:bg-blue-700"}
+    text-white font-semibold
+    px-5 py-2
+    rounded-full
+    shadow-lg
+    transition-all duration-300 ease-in-out
+    hover:scale-105
+    active:scale-95
+    my-2
+  `}
+        >
+          {showGptSearch ? "🏠 Home" : "🤖 GPT Search"}
+        </button>
+
         <button onClick={UserSignOut} className="bg-red-600 hover:bg-red-700 transition px-2 md:px-4 py-1 md:py-2 rounded-md text-white font-bold">
           Sign Out
         </button>

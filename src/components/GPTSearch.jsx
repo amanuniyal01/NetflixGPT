@@ -2,7 +2,7 @@ import React from 'react'
 
 function GPTSearch() {
   return (
-    <div>GPTSeach</div>
+    <div>GPTSearch</div>
   )
 }
 
